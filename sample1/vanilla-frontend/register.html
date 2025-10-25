@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <h2 id="heading">Hi there, Enter your credentials</h2>
+        <input type="text" placeholder="Name" id="ip1">
+        <input type="text" placeholder="Email" id="ip2">
+        <input type="text" placeholder="Password" id="ip3">
+        <button onclick="register()">Sign up</button>
+    </div>
+
+    <script>
+        function register() {
+            const name = document.getElementById('ip1').value;
+            const email = document.getElementById('ip2').value;
+            const password = document.getElementById('ip3').value;
+            
+
+            fetch('http://localhost:5000/register', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    password: password
+                })
+            }).then((resp) => {
+                return resp.json()
+            }).then((data) => {
+                console.log(data)
+            }).catch((err) => {
+                console.log(`error in sending request ${err}`);
+            })
+        }
+    </script>
+</body>
+</html>

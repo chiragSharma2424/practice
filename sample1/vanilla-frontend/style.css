@@ -1,0 +1,113 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body background */
+body {
+    background: radial-gradient(circle at top, #1b1b1b, #0d0d0d);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Main container (bigger and more aesthetic) */
+.main {
+    background: rgba(25, 25, 25, 0.75);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 35px rgba(0, 255, 255, 0.08),
+                0 0 15px rgba(0, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 50px 60px;
+    width: 420px;
+    text-align: center;
+    transition: all 0.4s ease;
+    animation: fadeIn 0.8s ease;
+}
+
+.main:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+}
+
+/* Heading */
+#heading {
+    color: #e9f1f1;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+/* Input fields */
+#ip1,
+#ip2,
+#ip3 {
+    width: 100%;
+    background: rgba(18, 18, 18, 0.8);
+    border: 1px solid #2c2c2c;
+    color: #fff;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 22px;
+    outline: none;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+/* Focus effect */
+#ip1:focus,
+#ip2:focus,
+#ip3:focus {
+    border-color: #00fff2;
+    box-shadow: 0 0 10px #00fff2;
+}
+
+/* Placeholder */
+#ip1::placeholder,
+#ip2::placeholder,
+#ip3::placeholder {
+    color: #aaa;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #00adb5, #0097a7);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+    font-size: 15px;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #00e6f6, #00b7c2);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
