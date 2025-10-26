@@ -36,6 +36,7 @@
                 return resp.json()
             }).then((data) => {
                 console.log(data)
+                localStorage.setItem('token', data.token);
             }).catch((err) => {
                 console.log(`error in sending request ${err}`);
             })
