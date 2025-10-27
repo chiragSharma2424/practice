@@ -25,9 +25,20 @@ const signup = async (req, res) => {
 
     const token = jwt.sign({id: newUser._id}, 'secret-key', { expiresIn: '1h' });
 
+    res.cookie('token', token, {
+      httpOnly: true, 
+      secure: false, 
+      sameSite: 'strict',
+      maxAge: 3600000 
+    })
+
     res.json({
         msg: "User signup successfully",
-        token: token
+        token: token,
+        user: {
+            name: newUser.name,
+            email: newUser.email
+        }
     });
 };
 
@@ -52,13 +63,19 @@ const signin = async (req, res) => {
 
         const token = jwt.sign({id: existingUser._id}, "secret-key", { expiresIn: '1h' });
 
+        res.cookie('token', token, {
+             httpOnly: true, 
+             secure: false, 
+             sameSite: 'strict',
+             maxAge: 3600000 
+          });
+
         res.json({
             msg: "Signin successfully",
             token: token,
             user: {
                 name: existingUser.name,
                 email: existingUser.email,
-                id: existingUser._id
             }
         });
 
