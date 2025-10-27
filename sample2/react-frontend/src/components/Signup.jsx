@@ -62,15 +62,16 @@ export default function Signup() {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: {
+                    body: JSON.stringify({
                         name: name,
                         email: email,
                         password: password
-                    }
+                    })
                 }).then((resp) => {
                     return resp.json();
                 }).then((data) => {
                     console.log(data);
+                    localStorage.setItem('token', data.token);
                 }).catch((err) => {
                     console.log(`error in sending request ${err}`);
                 })
