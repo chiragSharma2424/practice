@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 export default function Signin() {
     const Navigate = useNavigate();
@@ -41,8 +42,19 @@ export default function Signin() {
 
          
           <button
-            className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:opacity-90 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-400/40"
-          >
+
+            onClick={() => {
+              axios.post('http://localhost:5000/api/users/signin', {
+                email: email,
+                password: password
+              }).then((res) => {
+                console.log(res.data);
+              }).catch((err) => {
+                console.log(`error while sending requst ${err}`);
+              })
+              
+            }}
+            className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:opacity-90 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-400/40">
             Sign In
           </button>
         </div>
