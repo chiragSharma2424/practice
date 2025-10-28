@@ -49,10 +49,12 @@ export default function Signin() {
                 password: password
               }).then((res) => {
                 console.log(res.data);
+                localStorage.setItem('token', res.data.token);
+                Navigate('/');
               }).catch((err) => {
                 console.log(`error while sending requst ${err}`);
               })
-              
+
             }}
             className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:opacity-90 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-400/40">
             Sign In

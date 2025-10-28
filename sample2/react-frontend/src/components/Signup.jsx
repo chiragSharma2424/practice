@@ -72,6 +72,7 @@ export default function Signup() {
                 }).then((data) => {
                     console.log(data);
                     localStorage.setItem('token', data.token);
+                    Navigate('/');
                 }).catch((err) => {
                     console.log(`error in sending request ${err}`);
                 })
