@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Sending request to our basic server or api</h1>
+    <button onclick="getData()">Get</button>
+    <div id="display"></div>
+
+    <script>
+        function getData() {
+            const parentDiv = document.getElementById('display');
+            fetch('http://localhost:3000').then((resp) => {
+                return resp.json();
+                console.log(resp)
+            }).then((data) => {
+                console.log(data);
+                const newHeading = document.createElement('h1');
+                newHeading.innerHTML = JSON.stringify(data);
+                parentDiv.appendChild(newHeading);
+            }).catch((err) => {
+                console.log(`error while sending request ${err}`);
+            })
+        }
+    </script>
+</body>
+</html>
