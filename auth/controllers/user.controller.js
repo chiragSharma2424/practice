@@ -1,4 +1,5 @@
 import userModel from "../models/user.model.js";
+import sentVerificationEmail from "../utils/sendMail.js";
 import crypto from 'crypto';
 
 const register = async (req, res) => {
@@ -52,10 +53,39 @@ const register = async (req, res) => {
             })
         }
 
-        // send mail, mail pe verification token jayega
+        // send mail
+        await sentVerificationEmail(email, token);
+
+        // response to user
+        return res.status(200).json({
+            success: true,
+            message: "User registered, now you have to verify your email",
+            user: {
+                name: newUser.name,
+                email: newUser.email
+            }
+        })
+
+    } catch(err) {
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        })
+    }
+}
+
+
+// verify controller
+// for verification we need a token
+const verify = async (req, res) => {
+    try {
+        const token = req.params.token;
+
+        // get user
+        const user = await userModel.findOne({ email });
         
     } catch(err) {
-
+        console.log(`error in verify ${err}`);
     }
 }
 
