@@ -3,6 +3,7 @@ import dotnev from 'dotenv'
 dotnev.config();
 import cors from 'cors';
 import connectDatabase from './utils/db.js';
+import userRoutes from './routes/user.routes.js'
 const app = express();
 const port = process.env.PORT
 
@@ -15,13 +16,17 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// routes
+app.use('/api/v1/users', userRoutes);
+
 app.get('/', (req, res) => {
     return res.status(200).json({
         msg: "Hello chirag"
     });
 });
 
-// taking name in body only for testing 
+
+// taking name in body only for testing
 app.post('/', (req, res) => {
     const name = req.body.name;
 
@@ -34,7 +39,6 @@ app.post('/', (req, res) => {
         msg: `name is ${name}`
     });
 })
-
 // console.log(process.env.PORT);
 
 connectDatabase();
