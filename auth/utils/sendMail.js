@@ -46,4 +46,4 @@ const sentVerificationEmail = async (email, token) => {
     }
 }
 
-export default sentVerificationEmail
+export default sentVerificationEmail;

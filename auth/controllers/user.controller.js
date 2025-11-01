@@ -64,7 +64,7 @@ const register = async (req, res) => {
                 name: newUser.name,
                 email: newUser.email
             }
-        })
+        });
 
     } catch(err) {
         return res.status(500).json({
@@ -82,11 +82,47 @@ const verify = async (req, res) => {
         const token = req.params.token;
 
         // get user
-        const user = await userModel.findOne({ email });
-        
+        const user = await userModel.findOne({ 
+            verificationToken: token,
+            verificationTokenExpiry: {$gt: Date.now()}
+         });
+
+         // is user exist
+         if(!user) {
+            return res.status(200).json({
+                success: false,
+                message: "token invalid"
+            })
+         }
+
+        user.isVerified = true; 
+        user.verificationToken = undefined;
+        user.verificationTokenExpiry = undefined;
+        await user.save();
+
+        return res.status(200).json({
+            success: false,
+            message: 'User account is verified'
+        })
     } catch(err) {
         console.log(`error in verify ${err}`);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        })
     }
 }
 
-export { register };
+const login = async (req, res) => {
+    try {
+        
+    } catch(err) {
+        console.log(`error in login controller ${err}`);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        })
+    }
+}
+
+export { register, verify, login };
