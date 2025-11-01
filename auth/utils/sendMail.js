@@ -11,12 +11,12 @@ const sentVerificationEmail = async (email, token) => {
     try {
         // create email transporter
         const transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: process.env.EMAIL_PORT,
-            secure: process.env.EMAIL_SECURE === 'true',
+            host: process.env.MAILTRAP_HOST,
+            port: process.env.MAILTRAP_PORT,
+            secure: false,
             auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
+                user: process.env.MAILTRAP_USERNAME,
+                pass: process.env.MAILTRAP_PASSWORD
             },
         })
 
@@ -25,7 +25,7 @@ const sentVerificationEmail = async (email, token) => {
 
         // email content
         const mailOptions = {
-            from: `"Authentication app" < ${process.env.SENDER_EMAIL}`,
+            from: `"Authentication app" < ${process.env.SENDERMAIL}`,
             to: email,
             subject: "Please verify your email address",
             text: `
