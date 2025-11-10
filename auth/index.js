@@ -2,6 +2,7 @@ import express from 'express'
 import dotnev from 'dotenv'
 dotnev.config();
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import connectDatabase from './utils/db.js';
 import userRoutes from './routes/user.routes.js'
 const app = express();
@@ -15,6 +16,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // routes
 app.use('/api/v1/users', userRoutes);

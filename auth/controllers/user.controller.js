@@ -1,6 +1,9 @@
 import userModel from "../models/user.model.js";
 import sentVerificationEmail from "../utils/sendMail.js";
 import crypto from 'crypto';
+import dotenv from 'dotenv';
+dotenv.config();
+import jwt from 'jsonwebtoken';
 
 const register = async (req, res) => {
     // 1. get user data from body, req.body
@@ -115,7 +118,58 @@ const verify = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        
+        // 1. ge user data
+        const { email, password } = req.body;
+
+        // 2. validate
+        if(!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required"
+            })
+        }
+
+        const user = await userModel.findOne({ email });
+        if(!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            })
+        }
+
+        // 3. check if user verified
+        if(!user.isVerified) {
+             return res.status(404).json({
+                success: false,
+                message: "User not found"
+            })
+        }
+
+        // 4. check password
+        const isPasswodMatch = await user.comparePassword(password);
+
+        // 5. jwt token
+        const jwtToken = jwt.sign({id: user._id}, process.env.JWT_SECRET, {
+            expiresIn: '15m'
+        });
+
+        // set cookie
+        const cookieOptions = {
+            expires: new Date(Date.now() + 24 * 60*60*1000),
+            httpOnly: true,
+
+        }
+        res.cookie("jwtToken", jwtToken, cookieOptions);
+
+        return res.status(200).json({
+            success: false,
+            token: jwtToken,
+            message: "Log successfully",
+            user: {
+                name: user.name,
+                email: user.email
+            }
+        })
     } catch(err) {
         console.log(`error in login controller ${err}`);
         return res.status(500).json({
