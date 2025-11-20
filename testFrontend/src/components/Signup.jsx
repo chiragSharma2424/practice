@@ -59,6 +59,8 @@ function Signup() {
                   password,
                 }).then((resp) => {
                     console.log(resp.data);
+                }).catch((err) => {
+                  console.log(`axios error ${err}`);
                 })
             }}>
             Register
