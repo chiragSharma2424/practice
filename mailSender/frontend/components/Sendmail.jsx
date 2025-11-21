@@ -8,7 +8,7 @@ const Sendmail = () => {
 
   return (
     <Box
-      sx={{ maxWidth: 500,margin: "40px auto",padding: 2, background: '#1a1a1a'}}>
+      sx={{ maxWidth: 500,margin: "40px auto",padding: 2}}>
       <Paper elevation={4} sx={{ p: 3, borderRadius: 3 }}>
         <Typography variant="h5" fontWeight="bold" mb={2}>
           Send Email
