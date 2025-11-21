@@ -25,7 +25,6 @@ app.post('/send-mail', async (req, res) => {
             })
         }
         const transporter = nodemailer.createTransport({
-    
             port: 587,
             secure: false,
             host: 'smtp-relay.brevo.com',
@@ -45,7 +44,7 @@ app.post('/send-mail', async (req, res) => {
         await transporter.sendMail(mailOptions);
 
         res.json({
-            msg: "Email sent successfully"
+            msg: `Email sent successfully to ${reciverEmail}`
         });
 
     } catch(err) {
