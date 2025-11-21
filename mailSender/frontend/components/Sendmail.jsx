@@ -3,7 +3,7 @@ import { Box, Button, TextField, Typography, Paper } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
 const Sendmail = () => {
-  const [mail, setMail] = useState('');
+  const [reciverEmail, setReciverEmail] = useState('');
   const [message, setMessage] = useState('');
 
   return (
@@ -16,7 +16,7 @@ const Sendmail = () => {
 
         <TextField fullWidth label="Recipient Email" variant="outlined" sx={{ mb: 2 }}
           onChange={(e) => {
-            setMail(e.target.value);
+            setReciverEmail(e.target.value);
           }}
         />
         <TextField fullWidth label="Message"variant="outlined" multiline rows={4}sx={{ mb: 3 }}
@@ -33,7 +33,7 @@ const Sendmail = () => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                  mail: mail,
+                  reciverEmail: reciverEmail,
                   message: message
                 })
             }).then((resp) => {

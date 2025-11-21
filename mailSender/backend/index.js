@@ -18,21 +18,26 @@ app.get('/', (req, res) => {
 app.post('/send-mail', async (req, res) => {
     try {
         const {reciverEmail, message} = req.body;
+
+        if(!reciverEmail) {
+            return res.status(404).json({
+                msg: "Reciver email is required"
+            })
+        }
         const transporter = nodemailer.createTransport({
     
             port: 587,
             secure: false,
             host: 'smtp-relay.brevo.com',
-
             auth: {
-                user: 'sharmachirag242004@gmail.com',
-                pass: ''
+                user: process.env.BREVO_USERNAME,
+                pass: process.env.BREVO_PASSWORD
             }
         })
 
         const mailOptions = {
-            from: "yourgmail@gmail.com",
-            to: email,
+            from: "sharmachirag242004@gmail.com",
+            to: reciverEmail,
             subject: "Welcome to Our Service",
             text: `Hi ${reciverEmail},\n\n${message}\n\nRegards`
         };
@@ -40,13 +45,13 @@ app.post('/send-mail', async (req, res) => {
         await transporter.sendMail(mailOptions);
 
         res.json({
-            message: "Email sent successfully"
+            msg: "Email sent successfully"
         });
 
     } catch(err) {
         console.log(`error in send mail ${err}`);
         return res.status(500).json({
-            message: "Internal server error"
+            msg: "Internal server error"
         })
     }
 });
